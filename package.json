@@ -1,5 +1,5 @@
 {
-  "name": "MarketplaceSyncZoneInitiator",
+  "name": "marketplacesynczoneinitiator",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,13 @@
     "xpath": "0.0.27"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nzhang4-sh/MarketplaceSyncZoneInitiator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nzhang4-sh/MarketplaceSyncZoneInitiator/issues"
+  },
+  "homepage": "https://github.com/nzhang4-sh/MarketplaceSyncZoneInitiator#readme",
   "description": ""
 }

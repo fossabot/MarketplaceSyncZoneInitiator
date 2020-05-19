@@ -9,7 +9,8 @@ sftp.connect({
     }).then(() => {
         return sftp.list('/');
     }).then(d => {
-        console.log(`remote dir ${d}`);
+        console.log(`remote dir:`);
+        console.dir(d);
     }).catch(e => {
         console.error("connect to sftp server: " + server + ":" + port + " with username: " + username + " password: " + password + " with error: " + e.message);
     }).finally(() => {

@@ -15,14 +15,10 @@ sql.on('error', err => {
 
 sql.connect(connectionString).then(pool => {
   const zoneCode = config.get("ZoneCode");
-  const syncStatus = config.get('SyncStatus');
-  const isActive = config.get('IsActive');
   const query = config.get('QueryZoneConfig');
 
   return pool.request()
     .input('ZoneCode', sql.Int, zoneCode)
-    .input('SyncStatus', sql.Int, syncStatus)
-    .input('IsActive', sql.Int, isActive)
     .query(query);
 }).then(result => {
   const xpath = require('xpath');
@@ -42,25 +38,28 @@ sql.connect(connectionString).then(pool => {
     let server = overrideServer ? overrideServer : xpath.select("/items/item[key/string='Server']/value/anyType/text()", doc);
     const sftp = new client();
     sftp.connect({
-      host: server,
-      username: username,
-      password: password,
-      port: port
+      host: server + "",
+      username: username + "",
+      password: password + "",
+      port: parseInt(port)
     }).then(() => {
         return sftp.list('/');
       }).then(d => {
-        log.warn(`remote dir ${d}`);
-        console.log(`remote dir ${d}`);
+        log.warn('remote dir:');
+        log.warn(JSON.stringify(d, null, 4));
+        console.log('remote dir:');
+        console.dir(d);
       }).catch(e => {
         log.error("connect to sftp server: " + server + ":" + port + " with username: " + username + " password: " + password + " with error: " + e.message);
         console.error("connect to sftp server: " + server + ":" + port + " with username: " + username + " password: " + password + " with error: " + e.message);
       }).finally(() => {
+    next();
+
         return sftp.end();
       });
     finishCount++;
     log.warn("record initiator finished at " + finishCount + "/" + totalRecords, true);
     console.log("record initiator finished at " + finishCount + "/" + totalRecords);
-    next();
   }, function(err){
     let errorMessage = err ? err : "";
     if(errorMessage) console.log("with error message: " + errorMessage);

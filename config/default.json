@@ -5,10 +5,8 @@
     "server": "DB300-1",
     "database": "DataLogs"
   },
-  "QueryZoneConfig": "SELECT * FROM datalogs.dbo.sync_SubscriberXZones WHERE ZoneCode=@ZoneCode AND IsActive = @IsActive AND SyncStatus = @SyncStatus",
+  "QueryZoneConfig": "SELECT * FROM datalogs.dbo.sync_SubscriberXZones WHERE ZoneCode=@ZoneCode",
   "ZoneCode": 9,
-  "SyncStatus": 1,
-  "IsActive": 1,
   "OverrideServer": "sellerdirect-sftp-v2.seatgeek.com",
   "ConcurrencyCount": 8
 }
