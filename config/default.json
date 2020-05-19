@@ -1,12 +1,12 @@
 {
   "ConnectionString": {
-    "user": "DL-StubHub-TicketUtils-India",
-    "password": "Changeme(9",
-    "server": "DB300-1",
-    "database": "DataLogs"
+    "user": "yyyyyyyy",
+    "password": "xxxxxxxx",
+    "server": "zzzzzz",
+    "database": "ggggggg"
   },
-  "QueryZoneConfig": "SELECT * FROM datalogs.dbo.sync_SubscriberXZones WHERE ZoneCode=@ZoneCode",
+  "QueryZoneConfig": "SELECT * FROM abc.dbo.bcd WHERE ZoneCode=@ZoneCode",
   "ZoneCode": 9,
-  "OverrideServer": "sellerdirect-sftp-v2.seatgeek.com",
+  "OverrideServer": "sftp.com",
   "ConcurrencyCount": 8
 }
