@@ -1,10 +1,15 @@
-
+const filelog = require('filelog');
+var log = filelog.create({
+  'file' : 'logs/{YYYY-MM-DD}.log',
+  'level' : filelog.WARN | filelog.ERROR 
+});
 const config = require('config');
 const sql = require('mssql');
 const connectionString = config.get('ConnectionString');
 const overrideServer = config.get('OverrideServer');
 
 sql.on('error', err => {
+  log.error("connection error. err: " + err);
   console.error("connection error. err: " + err);
 });
 
@@ -36,29 +41,31 @@ sql.connect(connectionString).then(pool => {
     port = port ? port : 22;
     let server = overrideServer ? overrideServer : xpath.select("/items/item[key/string='Server']/value/anyType/text()", doc);
     const sftp = new client();
-    console.log("server: "+ server + " username: " + username + " password: " + password + " port: " + port);
     sftp.connect({
       host: server,
       username: username,
       password: password,
       port: port
     }).then(() => {
-        return sftp.cwd();
+        return sftp.list('/');
       }).then(d => {
+        log.warn(`remote dir ${d}`);
         console.log(`remote dir ${d}`);
       }).catch(e => {
+        log.error("connect to sftp server: " + server + ":" + port + " with username: " + username + " password: " + password + " with error: " + e.message);
         console.error("connect to sftp server: " + server + ":" + port + " with username: " + username + " password: " + password + " with error: " + e.message);
       }).finally(() => {
         return sftp.end();
       });
     finishCount++;
+    log.warn("record initiator finished at " + finishCount + "/" + totalRecords, true);
     console.log("record initiator finished at " + finishCount + "/" + totalRecords);
     next();
   }, function(err){
     let errorMessage = err ? err : "";
     if(errorMessage) console.log("with error message: " + errorMessage);
   });
-
 }).catch(err => {
+  log.error(err);
   console.error(err);
 });

@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test-sftp": "node test-sftp-client.js"
   },
   "keywords": [],
   "author": "zhang_nan_163@163.com",
   "license": "ISC",
   "dependencies": {
     "config": "^3.3.1",
+    "filelog": "^0.1.5",
     "mssql": "^6.2.0",
     "ssh2-sftp-client": "^5.1.2",
     "tiny-each-async": "^2.0.3",
